@@ -1,18 +1,15 @@
-import { useEffect } from "react";
+import React from "react";
 
 function App() {
-  useEffect(() => {
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.MainButton.setText("🚀 Открыть модуль");
-    tg.MainButton.show();
-  }, []);
-
   return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h1>🇨🇳 Mini App: Обучение заказам из Китая</h1>
-      <p>Добро пожаловать в твое приложение!</p>
-      <p>Скоро здесь будут: модули, прогресс, чат с ИИ и доступ по коду 🔐</p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-emerald text-white">
+      <h1 className="text-4xl font-bold mb-6">🇨🇳 China Mini App</h1>
+      <p className="mb-8 text-lg text-center text-white/90 max-w-md">
+        Добро пожаловать в обучающее мини-приложение по заказу товаров из Китая.
+      </p>
+      <button className="bg-graphite text-black px-6 py-3 rounded-xl text-lg font-semibold hover:bg-gray-700 transition-all shadow-lg">
+        Войти в мини-приложение
+      </button>
     </div>
   );
 }
