@@ -133,3 +133,42 @@ button:hover {
   background: #1b1b1b;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
 }
+
+/* === Анимации появления === */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-content h1 {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.main-content .subtitle {
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.main-content .buttons {
+  animation: fadeInUp 1.2s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* плавное появление элементов меню */
+.side-menu ul li {
+  opacity: 0;
+  transform: translateX(-15px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.side-menu.open ul li {
+  animation-delay: calc(var(--i, 0) * 0.08s);
+  opacity: 1;
+  transform: translateX(0);
+}

@@ -3,78 +3,82 @@
   background: linear-gradient(180deg, #0a2b22 0%, #021814 100%);
   color: white;
   font-family: Inter, sans-serif;
-  padding: 30px;
+  padding: 20px 10px 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
-.progress-bar-container {
+h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+/* === Прогресс === */
+.progress-section {
   width: 90%;
-  max-width: 420px;
-  position: relative;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  max-width: 300px;
+  margin-bottom: 25px;
 }
 
-.progress-bar {
-  width: 100%;
-  height: 20px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  box-shadow: 0 0 12px rgba(255,255,255,0.3);
-}
-
-.progress-fill {
-  height: 100%;
-  background: #fff;
-  transition: width 0.3s ease;
-  box-shadow: 0 0 10px rgba(255,255,255,0.6);
-}
-
-.progress-label {
-  position: absolute;
-  top: 50%;
-  right: -55px;
-  transform: translateY(-50%);
+.progress-info {
+  text-align: right;
+  margin-bottom: 4px;
   font-size: 18px;
   font-weight: 600;
   color: #fff;
 }
 
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1fff9c, #00b06e);
+  box-shadow: 0 0 12px rgba(0, 255, 150, 0.6);
+  transition: width 0.4s ease;
+}
+
+/* === Модули === */
 .modules-list {
   width: 100%;
-  max-width: 420px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .module-btn {
   width: 100%;
-  padding: 14px 20px;
+  padding: 14px 16px;
   background: #111;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: left;
   cursor: pointer;
+  font-size: 16px;
   transition: background 0.2s, transform 0.2s;
 }
 
 .module-btn:hover {
   background: #1a1a1a;
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .module-btn.completed {
-  background: #134b2c;
+  background: #0f3c2f;
+  box-shadow: 0 0 8px rgba(0, 255, 100, 0.3);
 }
 
+/* === Подмодули === */
 .submodules {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.25);
   padding: 10px 15px;
   margin-top: 6px;
   border-radius: 10px;
@@ -104,9 +108,10 @@
   background: #ccc;
 }
 
+/* === Кнопка выхода === */
 .exit-btn {
   width: 90%;
-  max-width: 420px;
+  max-width: 300px;
   padding: 14px;
   margin-top: 30px;
   background: #2c2c2c;
@@ -123,7 +128,42 @@
   transform: scale(1.02);
 }
 
+/* === Анимация === */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Адаптив === */
+@media (max-width: 480px) {
+  h2 {
+    font-size: 20px;
+  }
+
+  .progress-section {
+    max-width: 260px;
+  }
+
+  .modules-list {
+    max-width: 260px;
+  }
+
+  .progress-info {
+    font-size: 16px;
+  }
+
+  .module-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .exit-btn {
+    max-width: 260px;
+  }
 }
