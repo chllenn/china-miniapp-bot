@@ -1,12 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
-
-
 const { Telegraf } = require('telegraf');
 const bot = new Telegraf('8280337762:AAGNvUSZYh1Ap2p_Xwp5r3yCX4stL7T4qT4'); 
 
@@ -42,7 +33,7 @@ bot.on('callback_query', async (ctx) => {
       await ctx.reply('👇 Нажми, чтобы открыть:', {
         reply_markup: {
           inline_keyboard: [
-            [{ text: 'Перейти в мини-приложение', web_app: { url: 'https://твой-сайт.vercel.app' } }]
+            [{ text: 'Перейти в мини-приложение', web_app: { url: 'https://china-miniapp-bot-cy9w.vercel.app' } }]
           ]
         }
       });

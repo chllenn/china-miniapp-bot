@@ -1,0 +1,135 @@
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a2b22 0%, #021814 100%);
+  position: relative;
+  color: white;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+
+/* Фон с лого — видимый, мягкий, не пятно */
+.background-logo {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 110%; /* уменьшили — теперь виден */
+  opacity: 0.18; /* чуть больше видимости */
+  filter: blur(18px); /* мягкий размытый эффект */
+  z-index: 0;
+}
+
+/* Бургер */
+.burger {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 30px;
+  height: 3px;
+  border-radius: 2px;
+  background: white;
+}
+
+/* Затемнение при меню */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 4;
+}
+
+/* Меню */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 240px;
+  height: 100vh;
+  background: #000;
+  padding: 80px 20px;
+  transition: left 0.35s ease;
+  z-index: 5;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu ul li {
+  margin: 18px 0;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.15s;
+}
+
+.side-menu ul li:hover {
+  transform: translateX(6px);
+}
+
+/* Основная часть */
+.main-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 0 25px;
+}
+
+h1 {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  margin-top: -40px; /* подняли выше */
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  max-width: 600px;
+  line-height: 1.5;
+  margin-bottom: 60px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+button {
+  width: 250px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  transition: transform 0.12s, background 0.12s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.03);
+  background: #1b1b1b;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
