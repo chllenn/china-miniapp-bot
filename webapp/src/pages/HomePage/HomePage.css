@@ -172,3 +172,46 @@ button:hover {
   opacity: 1;
   transform: translateX(0);
 }
+
+/* --- 🔽 Стили бургер-меню и профиля Telegram --- */
+
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.menu-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #18a16a;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.menu-username {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Список в меню */
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu ul li {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.side-menu ul li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
