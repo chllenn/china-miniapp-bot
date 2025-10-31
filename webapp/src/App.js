@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import HomePage from "./pages/HomePage/HomePage";
 import LearningPage from "./pages/LearningPage/LearningPage";
 import AssistantPage from "./pages/AssistantPage/AssistantPage";
@@ -8,7 +7,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import ExitPage from "./pages/ExitPage/ExitPage";
 
-export default function App() {
+function App() {
   return (
     <Router>
       <Routes>
@@ -22,3 +21,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default App;

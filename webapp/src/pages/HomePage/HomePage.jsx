@@ -22,9 +22,6 @@ const HomePage = () => {
         <div></div>
       </div>
 
-      {/* Затемнение при открытом меню */}
-      {menuOpen && <div className="overlay" onClick={() => setMenuOpen(false)} />}
-
       {/* Боковое меню */}
       <nav className={`side-menu ${menuOpen ? "open" : ""}`}>
         <ul>
@@ -36,13 +33,12 @@ const HomePage = () => {
         </ul>
       </nav>
 
-      {/* Главный контент */}
+      {/* Контент */}
       <main className="main-content">
         <h1>ChinaOrderBot</h1>
         <p className="subtitle">
           Ваш персональный помощник в мире китайских заказов.  
-          Пройдите обучение и научитесь безопасно заказывать с китайских площадок.  
-          Всё под контролем — шаг за шагом!
+          Пройдите обучение и научитесь уверенно заказывать товары из Китая.
         </p>
 
         <div className="buttons">

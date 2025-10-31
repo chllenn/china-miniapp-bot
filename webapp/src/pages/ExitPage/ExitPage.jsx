@@ -1,53 +1,50 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ExitPage.css";
 
-const ExitPage = () => {
+export default function ExitPage() {
   const [explode, setExplode] = useState(false);
-  const [showFlash, setShowFlash] = useState(false);
+  const [flash, setFlash] = useState(false);
+  const [hideContent, setHideContent] = useState(false);
+  const navigate = useNavigate();
 
   const handleExit = () => {
+    // Сначала включаем анимацию разлёта
     setExplode(true);
-    setShowFlash(true);
 
-    // скрываем вспышку чуть позже
-    setTimeout(() => setShowFlash(false), 300);
+    // Через 0.4 секунды показываем вспышку и скрываем контент
+    setTimeout(() => {
+      setFlash(true);
+      setHideContent(true);
+    }, 400);
 
-    // закрытие Telegram mini app
+    // Через 1 секунду закрываем Telegram WebApp
     setTimeout(() => {
       if (window.Telegram?.WebApp) {
         window.Telegram.WebApp.close();
       } else {
         window.close();
       }
-    }, 2000);
+    }, 1000);
   };
 
   return (
     <div className="exit-container">
-      <div className={`exit-button ${explode ? "explode" : ""}`} onClick={handleExit}>
-        <span>Выйти из приложения</span>
-
-        {/* Кубики */}
-        {[...Array(16)].map((_, i) => (
-          <div key={i} className={`fragment fragment-${i + 1}`} />
-        ))}
-      </div>
-
-      {/* Вспышка */}
-      {showFlash && <div className="flash-effect" />}
-
-      {/* Частицы */}
-      {explode &&
-        [...Array(25)].map((_, i) => (
-          <div key={i} className="particle" style={{
-            left: `${50 + (Math.random() * 20 - 10)}%`,
-            top: `${50 + (Math.random() * 10 - 5)}%`,
-            animationDelay: `${Math.random() * 0.2}s`,
-            transform: `rotate(${Math.random() * 360}deg)`
-          }} />
-        ))}
+      {flash && <div className="flash-effect" />}
+      {!hideContent && (
+        <>
+          <h2 className="exit-text">Вы уверены, что хотите выйти?</h2>
+          <div className="exit-buttons">
+            <button onClick={() => navigate("/")}>Вернуться</button>
+            <button
+              className={`exit ${explode ? "explode" : ""}`}
+              onClick={handleExit}
+            >
+              Выйти
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
-};
-
-export default ExitPage;
+}
