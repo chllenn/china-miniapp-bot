@@ -22,7 +22,7 @@ const HomePage = () => {
         <div></div>
       </div>
 
-      {/* Полупрозрачная подложка при открытом меню */}
+      {/* Затемнение при открытом меню */}
       {menuOpen && <div className="overlay" onClick={() => setMenuOpen(false)} />}
 
       {/* Боковое меню */}
@@ -32,7 +32,7 @@ const HomePage = () => {
           <li onClick={() => navigate("/assistant")}>ИИ-ассистент</li>
           <li onClick={() => navigate("/profile")}>Профиль</li>
           <li onClick={() => navigate("/settings")}>Настройки</li>
-          <li onClick={() => navigate("/")}>Выход</li>
+          <li onClick={() => navigate("/exit")}>Выход</li>
         </ul>
       </nav>
 
@@ -41,15 +41,14 @@ const HomePage = () => {
         <h1>ChinaOrderBot</h1>
         <p className="subtitle">
           Ваш персональный помощник в мире китайских заказов.  
-          Учитесь и шаг за шагом заказывайте на китайских площадках. 
-          
-          Все в ваших руках.  
+          Пройдите обучение и научитесь безопасно заказывать с китайских площадок.  
+          Всё под контролем — шаг за шагом!
         </p>
 
         <div className="buttons">
           <button onClick={() => navigate("/learning")}>Начать обучение</button>
           <button onClick={() => navigate("/assistant")}>ИИ-ассистент</button>
-          <button onClick={() => navigate("/")}>Выйти</button>
+          <button onClick={() => navigate("/exit")}>Выйти</button>
         </div>
       </main>
     </div>

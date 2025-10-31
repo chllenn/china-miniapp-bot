@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ExitPage.css";
-export default function ExitPage(){
-  const confirmExit = () => {
-    if(window.confirm("Выйти из мини-приложения?")) {
-      try { window.Telegram.WebApp.close(); } catch(e){ window.history.back(); }
-    }
+
+const ExitPage = () => {
+  const [explode, setExplode] = useState(false);
+
+  const handleExit = () => {
+    setExplode(true);
+
+    // Закрытие Telegram mini app после анимации
+    setTimeout(() => {
+      if (window.Telegram?.WebApp) {
+        window.Telegram.WebApp.close();
+      } else {
+        window.close();
+      }
+    }, 2000);
   };
-  return (<div className="page"><h2>Выход</h2><p>Нажмите, чтобы выйти</p><button onClick={confirmExit}>Выйти</button></div>);
-}
+
+  return (
+    <div className="exit-container">
+      <div className={`exit-button ${explode ? "explode" : ""}`} onClick={handleExit}>
+        <span>Выйти из приложения</span>
+
+        {/* Фрагменты кнопки */}
+        {[...Array(9)].map((_, i) => (
+          <div key={i} className={`fragment fragment-${i + 1}`} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ExitPage;
