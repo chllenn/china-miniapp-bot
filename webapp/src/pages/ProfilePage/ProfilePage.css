@@ -1,0 +1,269 @@
+.profile-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a2b22 0%, #021814 100%);
+  color: #fff;
+  font-family: Inter, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* ===== Шапка ===== */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.nickname {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ===== Прогресс ===== */
+.progress-section {
+  width: 90%;
+  max-width: 420px;
+  margin-top: 25px;
+}
+
+.progress-bar {
+  height: 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.progress-fill {
+  height: 100%;
+  background: #fff;
+  transition: width 0.4s ease;
+}
+
+/* ===== Настройки ===== */
+.settings {
+  margin-top: 40px;
+  width: 90%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.setting-item label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* ===== Цели ===== */
+.goal-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.goal-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.goal-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.goal-card.selected {
+  background: #fff;
+  color: #0a2b22;
+  font-weight: 600;
+}
+
+/* ===== Площадки ===== */
+.platform-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.platform-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 15px;
+  min-width: 100px;
+  user-select: none;
+}
+
+.platform-item.selected {
+  background: #00ffb0;
+  color: #0a2b22;
+  box-shadow: 0 0 10px rgba(0, 255, 176, 0.5);
+}
+
+/* Аккуратный крест */
+.remove-btn {
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* ===== Добавить площадку ===== */
+.custom-platform {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.custom-platform input {
+  flex: 1;
+  background: #111;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px;
+}
+
+.custom-platform button {
+  background: #00ffb0;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.custom-platform button:hover {
+  background: #4fffca;
+}
+
+/* ===== Тумблер ===== */
+.setting-item.toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-switch::before {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 2px;
+  left: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-switch.on {
+  background: linear-gradient(90deg, #00ffb0, #00cc88);
+  box-shadow: 0 0 12px rgba(0, 255, 160, 0.5);
+}
+
+.toggle-switch.on::before {
+  transform: translateX(26px);
+}
+
+/* ===== Кнопка выхода ===== */
+.exit-btn {
+  margin-top: 40px;
+  background: #2c2c2c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 20px;
+  width: 80%;
+  max-width: 320px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exit-btn:hover {
+  background: #3a3a3a;
+  transform: scale(1.03);
+}
+
+/* ===== Тумблер уведомлений ===== */
+.toggle-switch {
+  width: 52px;
+  height: 30px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.25);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 3px;
+}
+
+.toggle-switch.on {
+  background: linear-gradient(90deg, #00ffa0, #00cc88);
+  box-shadow: 0 0 10px rgba(0, 255, 160, 0.6);
+}
+
+.toggle-circle {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.toggle-switch.on .toggle-circle {
+  transform: translateX(22px);
+}

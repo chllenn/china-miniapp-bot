@@ -135,30 +135,41 @@ button:hover {
 }
 
 /* === Анимации появления === */
-@keyframes fadeInUp {
-  0% {
+/* --- 🔽 Анимация плавного появления контента на главном экране --- */
+
+@keyframes fadeInUpSmooth {
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.main-content h1 {
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.main-content .subtitle {
-  animation: fadeInUp 1s ease forwards;
+.main-content {
+  animation: fadeInUpSmooth 0.8s ease forwards;
+  opacity: 0;
   animation-delay: 0.2s;
 }
 
+/* Чтобы кнопки и текст появлялись вместе */
+.main-content h1,
+.main-content .subtitle,
 .main-content .buttons {
-  animation: fadeInUp 1.2s ease forwards;
-  animation-delay: 0.4s;
+  opacity: 0;
+  animation: fadeInUpSmooth 0.8s ease forwards;
+  animation-delay: 0.3s;
 }
+
+/* Все элементы входят синхронно, без разных таймингов */
+.main-content .buttons button {
+  opacity: 0;
+  animation: fadeInUpSmooth 0.8s ease forwards;
+  animation-delay: 0.3s;
+}
+
 
 /* плавное появление элементов меню */
 .side-menu ul li {
