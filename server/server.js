@@ -32,7 +32,7 @@ bot.onText(/\/start/, (msg) => {
           [
             {
               text: "Открыть ChinaOrderBot",
-              web_app: { url: "https://твой-домен/webapp" }, // ← замени на свой URL
+              web_app: { url: "https://china-miniapp-bot.vercel.app" }, // ← замени на свой URL
             },
           ],
         ],
