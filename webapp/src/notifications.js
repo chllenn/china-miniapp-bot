@@ -1,27 +1,30 @@
-// webapp/src/notifications.js
+export async function enableNotifications() {
+  const tg = window.Telegram?.WebApp;
+  const userId = tg?.initDataUnsafe?.user?.id;
 
-export const initNotifications = (userId) => {
-  if (!("Notification" in window)) {
-    console.warn("Браузер не поддерживает уведомления");
+  if (!userId) {
+    alert("Ошибка: не удалось получить ID пользователя.");
     return;
   }
 
-  Notification.requestPermission().then((permission) => {
-    if (permission !== "granted") {
-      console.log("Уведомления отключены пользователем");
-      return;
-    }
-
-    console.log("✅ Уведомления включены для пользователя:", userId);
-
-    // Интервал для теста — каждую минуту (60 * 1000 мс)
-    const intervalMs = 60 * 1000;
-
-    setInterval(() => {
-      new Notification("ChinaOrderBot", {
-        body: "📦 Пора продолжить обучение или оформить новый заказ!",
-        icon: "/logo192.png", // можно заменить на твой логотип
-      });
-    }, intervalMs);
+  await fetch("https://твой-домен/api/notifications/on", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId }),
   });
-};
+
+  alert("🔔 Уведомления включены!");
+}
+
+export async function disableNotifications() {
+  const tg = window.Telegram?.WebApp;
+  const userId = tg?.initDataUnsafe?.user?.id;
+
+  await fetch("https://твой-домен/api/notifications/off", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId }),
+  });
+
+  alert("🔕 Уведомления выключены!");
+}

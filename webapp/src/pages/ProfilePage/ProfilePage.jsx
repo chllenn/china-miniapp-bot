@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./ProfilePage.css";
 
-
 const STORAGE_KEY = "china_profile_state_v1";
+
+// ⚙️ здесь укажи адрес своего сервера уведомлений
+// если тестируешь на телефоне — вставь IP своего ПК, например: http://192.168.1.105:3001
+const BASE_URL = "http://192.168.1.105:3001";
 
 export default function ProfilePage() {
   const tgUser = window?.Telegram?.WebApp?.initDataUnsafe?.user;
 
   const mainPlatforms = ["Poizon", "1688", "Taobao", "Pinduoduo"];
 
-  // load saved state or defaults
+  // начальная загрузка состояния
   const [state, setState] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -19,7 +22,7 @@ export default function ProfilePage() {
           selectedPlatforms: [],
           customPlatforms: [],
           notificationsOn: false,
-          progress: 0
+          progress: 0,
         };
       }
       return JSON.parse(raw);
@@ -29,19 +32,46 @@ export default function ProfilePage() {
         selectedPlatforms: [],
         customPlatforms: [],
         notificationsOn: false,
-        progress: 0
+        progress: 0,
       };
     }
   });
 
   const [customInput, setCustomInput] = useState("");
 
-  // persist state when it changes
+  // сохраняем состояние при изменении
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
-  // toggle platform (multi-select)
+  // переключатель уведомлений
+  const toggleNotifications = async () => {
+    const newValue = !state.notificationsOn;
+    setState((prev) => ({ ...prev, notificationsOn: newValue }));
+
+    try {
+      const user = tgUser;
+      if (!user) return;
+
+      const endpoint = newValue
+        ? "/api/notifications/on"
+        : "/api/notifications/off";
+
+      await fetch(`${BASE_URL}${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id }),
+      });
+
+      console.log(
+        `Уведомления ${newValue ? "включены" : "выключены"} для ${user.id}`
+      );
+    } catch (err) {
+      console.warn("Ошибка уведомлений:", err);
+    }
+  };
+
+  // выбор платформы
   const togglePlatform = (name) => {
     setState((prev) => {
       const exists = prev.selectedPlatforms.includes(name);
@@ -49,86 +79,70 @@ export default function ProfilePage() {
         ...prev,
         selectedPlatforms: exists
           ? prev.selectedPlatforms.filter((p) => p !== name)
-          : [...prev.selectedPlatforms, name]
+          : [...prev.selectedPlatforms, name],
       };
     });
   };
 
   const addCustomPlatform = () => {
     const trimmed = customInput.trim();
-    if (!trimmed) return;
-    if (trimmed.length > 25) return; // safety
+    if (!trimmed || trimmed.length > 25) return;
     setState((prev) => {
       if (prev.customPlatforms.includes(trimmed)) return prev;
-      if (prev.customPlatforms.length >= 10) return prev;
       return { ...prev, customPlatforms: [...prev.customPlatforms, trimmed] };
     });
     setCustomInput("");
   };
 
   const removeCustomPlatform = (name) => {
-    setState((prev) => {
-      return {
-        ...prev,
-        customPlatforms: prev.customPlatforms.filter((c) => c !== name),
-        selectedPlatforms: prev.selectedPlatforms.filter((p) => p !== name)
-      };
-    });
+    setState((prev) => ({
+      ...prev,
+      customPlatforms: prev.customPlatforms.filter((c) => c !== name),
+      selectedPlatforms: prev.selectedPlatforms.filter((p) => p !== name),
+    }));
   };
 
-  // notifications toggle: persist + notify backend if available
-  const toggleNotifications = async () => {
-    const newValue = !state.notificationsOn;
-    setState((prev) => ({ ...prev, notificationsOn: newValue }));
-
-    // try to POST to backend if available
-    try {
-      const user = tgUser;
-      if (user) {
-        const url = newValue
-          ? "/api/notifications/on"
-          : "/api/notifications/off";
-        await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: user.id })
-        });
-      }
-    } catch (err) {
-      // ignore network errors (server may be not running)
-      console.warn("Notify API error:", err);
-    }
-  };
-
-  // small handlers for goal set
   const setGoal = (g) => setState((prev) => ({ ...prev, goal: g }));
 
   const { goal, selectedPlatforms, customPlatforms, notificationsOn, progress } =
     state;
 
+  // сброс прогресса
+  const resetProgress = () => {
+    const updated = { ...state, progress: 0 };
+    setState(updated);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    localStorage.removeItem("learningProgress");
+    window.dispatchEvent(new Event("progressReset"));
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-header">
         <img
-          src={tgUser?.photo_url || "https://cdn-icons-png.flaticon.com/512/847/847969.png"}
+          src={
+            tgUser?.photo_url ||
+            "https://cdn-icons-png.flaticon.com/512/847/847969.png"
+          }
           alt="avatar"
           className="avatar"
         />
         <h2 className="nickname">{tgUser?.first_name || "Пользователь"}</h2>
       </div>
 
-      {/* progress bar (no percent text) */}
+      {/* Прогресс */}
       <div className="progress-section">
         <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          />
+          <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
+      <div className="progress-reset">
+        <button onClick={resetProgress}>Сбросить прогресс</button>
+      </div>
+
       <div className="settings">
-        {/* GOAL */}
+        {/* Цель */}
         <div className="setting-item">
           <label>Цель обучения</label>
           <div className="goal-options">
@@ -146,11 +160,10 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* PLATFORMS */}
+        {/* Площадки */}
         <div className="setting-item">
           <label>Предпочитаемые площадки</label>
           <div className="platform-options">
-            {/* main platforms first */}
             {mainPlatforms.map((name) => (
               <div
                 key={name}
@@ -163,7 +176,6 @@ export default function ProfilePage() {
               </div>
             ))}
 
-            {/* custom platforms (same behavior, plus remove square) */}
             {customPlatforms.map((name) => (
               <div
                 key={name}
@@ -187,7 +199,6 @@ export default function ProfilePage() {
             ))}
           </div>
 
-          {/* add custom */}
           <div className="custom-platform">
             <input
               type="text"
@@ -200,7 +211,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* NOTIFICATIONS */}
+        {/* Уведомления */}
         <div className="setting-item toggle">
           <label>Уведомления</label>
           <div

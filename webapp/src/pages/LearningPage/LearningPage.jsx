@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LearningPage.css";
 
+const STORAGE_KEY = "china_profile_state_v1";
+
 const modulesData = [
   { id: 1, title: "Модуль 1", submodules: 9 },
   { id: 2, title: "Модуль 2", submodules: 5 },
@@ -13,33 +15,56 @@ const modulesData = [
 ];
 
 export default function LearningPage() {
-  const [openModule, setOpenModule] = useState(null);
-  const [progress, setProgress] = useState(() => {
-    const saved = localStorage.getItem("learningProgress");
-    return saved ? JSON.parse(saved) : {};
-  });
-
   const navigate = useNavigate();
 
+  const [openModule, setOpenModule] = useState(null);
+  const [progress, setProgress] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("learningProgress")) || {};
+      return saved;
+    } catch {
+      return {};
+    }
+  });
+
+  // вычисляем % из количества завершённых модулей
+  const totalModules = modulesData.length;
+  const completedModules = Object.values(progress).filter(Boolean).length;
+  const progressPercent = Math.round((completedModules / totalModules) * 100);
+
+  // синхронизируем с localStorage learningProgress
   useEffect(() => {
     localStorage.setItem("learningProgress", JSON.stringify(progress));
   }, [progress]);
+
+  // обновляем глобальный профильный прогресс
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+      data.progress = progressPercent;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (err) {
+      console.warn("Ошибка обновления прогресса профиля:", err);
+    }
+  }, [progressPercent]);
+
+  // реагируем на сброс из ProfilePage
+  useEffect(() => {
+    const handleReset = () => {
+      setProgress({});
+    };
+    window.addEventListener("progressReset", handleReset);
+    return () => window.removeEventListener("progressReset", handleReset);
+  }, []);
 
   const handleModuleToggle = (id) => {
     setOpenModule(openModule === id ? null : id);
   };
 
   const handleCompleteModule = (id) => {
-    setProgress((prev) => {
-      const updated = { ...prev, [id]: true };
-      localStorage.setItem("learningProgress", JSON.stringify(updated));
-      return updated;
-    });
+    setProgress((prev) => ({ ...prev, [id]: true }));
   };
-
-  const totalModules = modulesData.length;
-  const completedModules = Object.values(progress).filter(Boolean).length;
-  const progressPercent = Math.round((completedModules / totalModules) * 100);
 
   return (
     <div className="learning-container">
@@ -52,7 +77,6 @@ export default function LearningPage() {
             {completedModules} / {totalModules}
           </span>
         </div>
-
         <div className="progress-bar">
           <div
             className="progress-fill"
