@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import BurgerMenu from "../../components/BurgerMenu";
+
 import "./TrackCheckPage.css";
 
 const STORAGE_KEY = "chinaorder_parcels";
@@ -56,6 +58,9 @@ const TrackCheckPage = () => {
 
   return (
     <div className="trackcheck-container">
+      {/* ✅ бургер-меню сверху */}
+      <BurgerMenu />
+
       <h2>Сверка трек-номеров</h2>
 
       <div className="input-row">
@@ -76,7 +81,7 @@ const TrackCheckPage = () => {
           <div key={p.id} className="parcel-item">
             <span
               className="parcel-name"
-              onClick={() => navigate(`/parcel/${p.id}`)} // ⬅️ при клике переходим в ParcelPage
+              onClick={() => navigate(`/parcel/${p.id}`)} // переход к деталям посылки
             >
               {p.name}
             </span>

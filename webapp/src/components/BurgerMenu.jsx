@@ -26,7 +26,7 @@ export default function BurgerMenu() {
     }
   }, []);
 
-  // Закрытие при клике вне меню
+  // закрытие при клике вне меню
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -38,7 +38,6 @@ export default function BurgerMenu() {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -50,7 +49,6 @@ export default function BurgerMenu() {
 
   return (
     <>
-      {/* Бургер и меню */}
       <div
         ref={burgerRef}
         className={`burger-icon ${isOpen ? "open" : ""}`}

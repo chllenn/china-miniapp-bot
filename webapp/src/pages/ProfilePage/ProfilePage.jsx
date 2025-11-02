@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
+import BurgerMenu from "../../components/BurgerMenu"; // ✅ добавлено
 import "./ProfilePage.css";
 
 const STORAGE_KEY = "china_profile_state_v1";
-
-// ⚙️ здесь укажи адрес своего сервера уведомлений
-// если тестируешь на телефоне — вставь IP своего ПК, например: http://192.168.1.105:3001
 const BASE_URL = "http://192.168.1.105:3001";
 
 export default function ProfilePage() {
   const tgUser = window?.Telegram?.WebApp?.initDataUnsafe?.user;
-
   const mainPlatforms = ["Poizon", "1688", "Taobao", "Pinduoduo"];
 
-  // начальная загрузка состояния
   const [state, setState] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -39,12 +35,10 @@ export default function ProfilePage() {
 
   const [customInput, setCustomInput] = useState("");
 
-  // сохраняем состояние при изменении
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
-  // переключатель уведомлений
   const toggleNotifications = async () => {
     const newValue = !state.notificationsOn;
     setState((prev) => ({ ...prev, notificationsOn: newValue }));
@@ -71,7 +65,6 @@ export default function ProfilePage() {
     }
   };
 
-  // выбор платформы
   const togglePlatform = (name) => {
     setState((prev) => {
       const exists = prev.selectedPlatforms.includes(name);
@@ -107,7 +100,6 @@ export default function ProfilePage() {
   const { goal, selectedPlatforms, customPlatforms, notificationsOn, progress } =
     state;
 
-  // сброс прогресса
   const resetProgress = () => {
     const updated = { ...state, progress: 0 };
     setState(updated);
@@ -118,6 +110,9 @@ export default function ProfilePage() {
 
   return (
     <div className="profile-container">
+      {/* ✅ Бургер меню */}
+      <BurgerMenu />
+
       <div className="profile-header">
         <img
           src={
