@@ -6,6 +6,8 @@ import AssistantPage from "./pages/AssistantPage/AssistantPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import ExitPage from "./pages/ExitPage/ExitPage";
+import TrackCheckPage from "./pages/TrackCheckPage/TrackCheckPage";
+import ParcelPage from "./pages/ParcelPage/ParcelPage"; // 🆕 добавляем страницу для конкретной посылки
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/exit" element={<ExitPage />} />
+        <Route path="/track-check" element={<TrackCheckPage />} />
+        <Route path="/parcel/:id" element={<ParcelPage />} /> {/* 🆕 маршрут для страницы посылки */}
       </Routes>
     </Router>
   );

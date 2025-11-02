@@ -226,7 +226,7 @@ export default function ProfilePage() {
       </div>
 
       <button className="exit-btn" onClick={() => (window.location.href = "/")}>
-        Выйти на главный экран
+        В главное меню
       </button>
     </div>
   );

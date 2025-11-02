@@ -1,0 +1,91 @@
+.burger-icon {
+  position: fixed;
+  top: 18px;
+  left: 20px;
+  width: 28px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.burger-icon div {
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.burger-icon.open div:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.burger-icon.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-icon.open div:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+.burger-menu {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100%;
+  background-color: black;
+  color: white;
+  transition: 0.4s ease;
+  padding-top: 70px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.burger-menu.show {
+  left: 0;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #222;
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #333;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.menu-item {
+  padding: 12px 22px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #111;
+}
+
+.menu-item.active {
+  background-color: #222;
+}

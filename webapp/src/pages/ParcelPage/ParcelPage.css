@@ -1,0 +1,153 @@
+.parcel-container {
+  color: white;
+  padding: 20px;
+  background: linear-gradient(180deg, #0a2b22, #021814);
+  min-height: 100vh;
+}
+
+.parcel-title {
+  width: 80%;
+  margin: 0 auto 25px;
+  display: block;
+  background: #1a1a1a;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 10px;
+  border-radius: 12px;
+  outline: none;
+}
+
+.track-columns {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.track-column {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  border-radius: 12px;
+  width: 45%;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.track-column h3 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: #121212;
+  color: white;
+  padding: 10px;
+  resize: none;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.graphite-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: #2f2f2f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.graphite-btn:hover {
+  background: #3a3a3a;
+}
+
+.big-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 12px 0;
+}
+
+.clear-btn {
+  background: #4b1a1a;
+}
+
+.clear-btn:hover {
+  background: #6a2222;
+}
+
+.track-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.track-item {
+  background: #1a1a1a;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  word-break: break-all;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track-item.match {
+  background: rgba(0, 255, 0, 0.2);
+}
+
+.track-item.no-match {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+/* маленький квадратный крестик */
+.delete-track {
+  width: 22px;
+  height: 22px;
+  background: #3a3a3a;
+  border: none;
+  border-radius: 4px;
+  color: #ff5b5b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  transition: 0.2s;
+}
+
+.delete-track:hover {
+  background: #ff5b5b;
+  color: white;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.small-btn {
+  width: 160px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 12px 0;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LearningPage.css";
+import BurgerMenu from "../../components/BurgerMenu"; // ✅ ДОБАВИЛ ЭТО
 
 const STORAGE_KEY = "china_profile_state_v1";
 
@@ -27,17 +28,14 @@ export default function LearningPage() {
     }
   });
 
-  // вычисляем % из количества завершённых модулей
   const totalModules = modulesData.length;
   const completedModules = Object.values(progress).filter(Boolean).length;
   const progressPercent = Math.round((completedModules / totalModules) * 100);
 
-  // синхронизируем с localStorage learningProgress
   useEffect(() => {
     localStorage.setItem("learningProgress", JSON.stringify(progress));
   }, [progress]);
 
-  // обновляем глобальный профильный прогресс
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -49,7 +47,6 @@ export default function LearningPage() {
     }
   }, [progressPercent]);
 
-  // реагируем на сброс из ProfilePage
   useEffect(() => {
     const handleReset = () => {
       setProgress({});
@@ -68,6 +65,8 @@ export default function LearningPage() {
 
   return (
     <div className="learning-container">
+      <BurgerMenu /> {/* ✅ БУРГЕР-МЕНЮ СРАЗУ В НАЧАЛЕ КОНТЕЙНЕРА */}
+
       <h2>Модули обучения</h2>
 
       {/* Прогресс-бар */}
@@ -121,7 +120,7 @@ export default function LearningPage() {
 
       {/* Кнопка выхода */}
       <button className="exit-btn" onClick={() => navigate("/")}>
-        Выйти
+        В главное меню
       </button>
     </div>
   );
